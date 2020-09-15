@@ -33,7 +33,7 @@ def addCoffeePod(name, productType, coffeeFlavor, podPackSize):
 	podPackSize.coffeePods.append(pod)
 
 	# save
-	db.commit()
+	db.session.commit()
 
 	# success
 	return pod
@@ -90,7 +90,7 @@ def addPodProductType(name):
 	db.session.add(object)
 	
 	# save
-	db.commit()
+	db.session.commit()
 
 	# success
 	return object
@@ -147,7 +147,7 @@ def addCoffeeFlavor(name):
 	db.session.add(object)
 	
 	# save
-	db.commit()
+	db.session.commit()
 
 	# success
 	return object
@@ -204,7 +204,7 @@ def addPodPackSize(size):
 	db.session.add(object)
 	
 	# save
-	db.commit()
+	db.session.commit()
 
 	# success
 	return object

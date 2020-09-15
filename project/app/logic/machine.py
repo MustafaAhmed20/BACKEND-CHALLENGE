@@ -18,6 +18,13 @@ def addCoffeeMachine(name, WaterLine, ProductType):
 	if not productType:
 		return None
 
+	# check if the name already exists
+	object = CoffeeMachine.query.filter_by(name=name).first()
+
+	if object:
+		# already exists
+		return None
+
 	# add new CoffeeMachine
 	machine = CoffeeMachine(name=name, WaterLine=WaterLine)
 
@@ -28,7 +35,7 @@ def addCoffeeMachine(name, WaterLine, ProductType):
 	productType.CoffeeMachines.append(machine)
 
 	# save
-	db.commit()
+	db.session.commit()
 
 	# success
 	return machine
@@ -93,7 +100,7 @@ def addCoffeeMachineProductType(name):
 	db.session.add(object)
 	
 	# save
-	db.commit()
+	db.session.commit()
 
 	# success
 	return object
@@ -101,7 +108,7 @@ def addCoffeeMachineProductType(name):
 def getCoffeeMachineProductType(id=None, name=None):
 	""" return the 'CoffeeMachineProductType' object or None if not exist
 		return a list of all CoffeeMachine if no filters passed.
-		return one object if filtered by 'id'"""
+		return one object if filtered by 'id' or name"""
 
 	# query all
 	if not any([id, name]):
@@ -112,7 +119,7 @@ def getCoffeeMachineProductType(id=None, name=None):
 		return CoffeeMachineProductType.query.get(id)
 	
 	if name:
-		return CoffeeMachineProductType.query.filter_by(name=name)
+		return CoffeeMachineProductType.query.filter_by(name=name).first()
 
 def deleteCoffeeMachineProductType(id=None):
 	''' delete the 'Coffee Machine Type'

@@ -16,6 +16,6 @@ def create_app():
 	models.db.init_app(app)
 
 	# register the blueprints
-	app.register_blueprint(api_views.api, url_prefix='/api')
+	#app.register_blueprint(api_views.api, url_prefix='/api')
 	
 	return app
