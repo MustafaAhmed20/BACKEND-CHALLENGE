@@ -15,7 +15,7 @@ class CoffeeMachine(db.Model):
 	name = db.Column(db.String(50), nullable=False, unique=True)
 
 	# the type of this 'Coffee Machine' - access with backref = 'type'
-	ProductType = db.Column('product_type', db.Integer, db.ForeignKey('product_type.id'), nullable=False)
+	ProductType = db.Column('product_type', db.Integer, db.ForeignKey('coffee_product_type.id'), nullable=False)
 
 	# has Water Line or not ?
 	WaterLine = db.Column('water_line', db.Boolean, nullable=False)
@@ -24,16 +24,16 @@ class CoffeeMachine(db.Model):
 		""" return dict representation of the object """
 		return {'id':self.id, 'name':self.name, 'WaterLine':self.WaterLine, 'ProductType':self.type.name}
 
-class ProductType(db.Model):
+class CoffeeProductType(db.Model):
 	""" the types of the coffee machines (LARGE, SMALL, ect)"""
 
-	__name__ = 'ProductType'
-	__tablename__ = 'product_type'
+	__name__ = 'CoffeeProductType'
+	__tablename__ = 'coffee_product_type'
 
 	id = db.Column(db.Integer, primary_key=True)
 
 	# the name of the 'Coffee Machine' type
-	name = db.Column(db.String(20), nullable=False, unique=True)
+	name = db.Column(db.String(30), nullable=False, unique=True)
 
 	# the Coffee Machines with this type
 	CoffeeMachines = db.relationship('CoffeeMachine', backref='type', lazy='dynamic')
