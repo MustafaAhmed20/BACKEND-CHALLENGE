@@ -15,13 +15,18 @@ class CoffeePod(db.Model):
 	name = db.Column(db.String(50), nullable=False, unique=True)
 
 	# the type of this 'Coffee Pod' - access with backref = 'type'
-	ProductType = db.Column('product_type', db.Integer, db.ForeignKey('pod_product_type.id'), nullable=False)
+	productType = db.Column('product_type', db.Integer, db.ForeignKey('pod_product_type.id'), nullable=False)
 
 	# the coffee flavor of this pod - access with backref = 'flavor'
-	CoffeeFlavor = db.Column('coffee_flavor', db.Integer, db.ForeignKey('coffee_flavor.id'), nullable=False)
+	coffeeFlavor = db.Column('coffee_flavor', db.Integer, db.ForeignKey('coffee_flavor.id'), nullable=False)
 
 	# the pack size - access with backref = 'size'
-	PodPackSize = db.Column('pod_pack_size', db.Integer, db.ForeignKey('pod_pack_size.id'), nullable=False)
+	podPackSize = db.Column('pod_pack_size', db.Integer, db.ForeignKey('pod_pack_size.id'), nullable=False)
+
+	def toDict(self):
+		""" return dict representation of the object """
+		return {'id':self.id, 'name':self.name, 'productType':self.type.name,
+		'coffeeFlavor':self.flavor.name, 'podPackSize':self.size.size}
 
 class PodProductType(db.Model):
 	""" the types of the Coffee Pods (LARGE, SMALL, ect)"""
@@ -35,11 +40,11 @@ class PodProductType(db.Model):
 	name = db.Column(db.String(30), nullable=False, unique=True)
 
 	# the Coffee Pods with this type
-	CoffeePods = db.relationship('CoffeePod', backref='type', lazy='dynamic')
+	coffeePods = db.relationship('CoffeePod', backref='type', lazy='dynamic', cascade = "all, delete, delete-orphan")
 
 	def toDict(self):
 		""" return dict representation of the object """
-		return {'id':self.id, 'name':self.name, 'CoffeePods':self.CoffeePods}
+		return {'id':self.id, 'name':self.name, 'coffeePods':self.coffeePods}
 
 class CoffeeFlavor(db.Model):
 	""" the types of the Coffee flavors (FLAVOR_VANILLA, FLAVOR_CARAMEL, ect)"""
@@ -53,11 +58,11 @@ class CoffeeFlavor(db.Model):
 	name = db.Column(db.String(30), nullable=False, unique=True)
 
 	# the Coffee Pods with this Flavor
-	CoffeePods = db.relationship('CoffeePod', backref='flavor', lazy='dynamic')
+	coffeePods = db.relationship('CoffeePod', backref='flavor', lazy='dynamic', cascade = "all, delete, delete-orphan")
 
 	def toDict(self):
 		""" return dict representation of the object """
-		return {'id':self.id, 'name':self.name, 'CoffeePods':self.CoffeePods}
+		return {'id':self.id, 'name':self.name, 'coffeePods':self.coffeePods}
 
 class PodPackSize(db.Model):
 	""" the different sizes of pods"""
@@ -71,8 +76,8 @@ class PodPackSize(db.Model):
 	size = db.Column(db.Integer, nullable=False, unique=True)
 
 	# the Coffee Pods with this size
-	CoffeePods = db.relationship('CoffeePod', backref='size', lazy='dynamic')
+	coffeePods = db.relationship('CoffeePod', backref='size', lazy='dynamic', cascade = "all, delete, delete-orphan")
 
 	def toDict(self):
 		""" return dict representation of the object """
-		return {'id':self.id, 'size':self.size, 'CoffeePods':self.CoffeePods}
+		return {'id':self.id, 'size':self.size, 'coffeePods':self.coffeePods}
