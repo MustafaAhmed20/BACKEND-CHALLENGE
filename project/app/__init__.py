@@ -2,9 +2,9 @@ from flask import Flask, make_response
 from dotenv import load_dotenv
 
 def create_app():
-    """ create the app instance """
+	""" create the app instance """
 	
-    # load the variables from the env file!
+	# load the variables from the env file!
 	load_dotenv()
 
 	from . import models, api_views
