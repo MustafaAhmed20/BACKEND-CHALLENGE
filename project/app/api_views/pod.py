@@ -35,9 +35,9 @@ def getPodRoute():
 
 	# success
 	result['status'] = baseStatus['success']
-	if not machines:
+	if not pods:
 		result['data']['coffee_pods'] = []
-	elif type(machines) is list:
+	elif type(pods) is list:
 		result['data']['coffee_pods'] = [p.toDict() for p in pods]
 	else:
 		result['data']['coffee_pods'] = [pods.toDict()]
@@ -67,12 +67,12 @@ def addPodRoute():
 
 	# add the data
 	if not addCoffeePod(name=name, coffeeFlavor=coffeeFlavor, productType=productType, podPackSize=podPackSize):
-		result['status'] = status['failure']
+		result['status'] = baseStatus['failure']
 		result['message'] = 'Some error occurred. Please try again'
 		return make_response(jsonify(result), 401)
 
 	# success
-	result['status'] = status['success']
+	result['status'] = baseStatus['success']
 	return make_response(jsonify(result), 201)
 
 @api.route('/delete_pod', methods=['DELETE'])
@@ -95,12 +95,12 @@ def deletePodRoute():
 
 	# add the data
 	if not deleteCoffeePod(id):
-		result['status'] = status['failure']
+		result['status'] = baseStatus['failure']
 		result['message'] = 'Some error occurred. Please try again'
 		return make_response(jsonify(result), 401)
 
 	# success
-	result['status'] = status['success']
+	result['status'] = baseStatus['success']
 	return make_response(jsonify(result), 200)
 
 
@@ -160,12 +160,12 @@ def addPodProductTypeRoute():
 
 	# add the data
 	if not addPodProductType(name=name):
-		result['status'] = status['failure']
+		result['status'] = baseStatus['failure']
 		result['message'] = 'Some error occurred. Please try again'
 		return make_response(jsonify(result), 401)
 
 	# success
-	result['status'] = status['success']
+	result['status'] = baseStatus['success']
 	return make_response(jsonify(result), 201)
 
 @api.route('/delete_pod_product_type', methods=['DELETE'])
@@ -188,12 +188,12 @@ def deletePodProductTypeRoute():
 
 	# add the data
 	if not deletePodProductType(id):
-		result['status'] = status['failure']
+		result['status'] = baseStatus['failure']
 		result['message'] = 'Some error occurred. Please try again'
 		return make_response(jsonify(result), 401)
 
 	# success
-	result['status'] = status['success']
+	result['status'] = baseStatus['success']
 	return make_response(jsonify(result), 200)
 
 # 'CoffeeFlavor' model
@@ -252,12 +252,12 @@ def addPodCoffeeFlavorRoute():
 
 	# add the data
 	if not addCoffeeFlavor(name=name):
-		result['status'] = status['failure']
+		result['status'] = baseStatus['failure']
 		result['message'] = 'Some error occurred. Please try again'
 		return make_response(jsonify(result), 401)
 
 	# success
-	result['status'] = status['success']
+	result['status'] = baseStatus['success']
 	return make_response(jsonify(result), 201)
 
 @api.route('/delete_pod_coffee_flavor', methods=['DELETE'])
@@ -280,12 +280,12 @@ def deletePodCoffeeFlavorRoute():
 
 	# add the data
 	if not deleteCoffeeFlavor(id):
-		result['status'] = status['failure']
+		result['status'] = baseStatus['failure']
 		result['message'] = 'Some error occurred. Please try again'
 		return make_response(jsonify(result), 401)
 
 	# success
-	result['status'] = status['success']
+	result['status'] = baseStatus['success']
 	return make_response(jsonify(result), 200)
 
 # 'PodPackSize' model
@@ -344,12 +344,12 @@ def addPodPodPackSizeRoute():
 
 	# add the data
 	if not addPodPackSize(size=size):
-		result['status'] = status['failure']
+		result['status'] = baseStatus['failure']
 		result['message'] = 'Some error occurred. Please try again'
 		return make_response(jsonify(result), 401)
 
 	# success
-	result['status'] = status['success']
+	result['status'] = baseStatus['success']
 	return make_response(jsonify(result), 201)
 
 @api.route('/delete_pod_pack_size', methods=['DELETE'])
@@ -372,11 +372,11 @@ def deletePodPodPackSizeRoute():
 
 	# add the data
 	if not deletePodPackSize(id):
-		result['status'] = status['failure']
+		result['status'] = baseStatus['failure']
 		result['message'] = 'Some error occurred. Please try again'
 		return make_response(jsonify(result), 401)
 
 	# success
-	result['status'] = status['success']
+	result['status'] = baseStatus['success']
 	return make_response(jsonify(result), 200)
 

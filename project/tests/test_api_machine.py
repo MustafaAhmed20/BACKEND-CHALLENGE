@@ -81,7 +81,11 @@ class TestCoffeeMachineApi(TestConfig):
 		self.assertEqual(data['status'], 'success')
 		self.assertEqual(result.content_type, 'application/json')
 		self.assertEqual(result.status_code, 200)
-	
+
+		# check the new type in the database
+		resultQuery = CoffeeMachineProductType.query.all()
+		self.assertFalse(resultQuery, 'no data found')
+
 	def test_add_machine(self):
 		''' try add new coffee machine  and then get it with 'GET' request'''
 
@@ -167,4 +171,8 @@ class TestCoffeeMachineApi(TestConfig):
 		self.assertEqual(data['status'], 'success')
 		self.assertEqual(result.content_type, 'application/json')
 		self.assertEqual(result.status_code, 200)
+
+		# check the new type in the database
+		resultQuery = CoffeeMachine.query.all()
+		self.assertFalse(resultQuery, 'no data found')
 
