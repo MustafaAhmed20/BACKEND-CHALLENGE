@@ -11,11 +11,11 @@ def addCoffeePod(name, productType, coffeeFlavor, podPackSize):
 	return 'CoffeePod' object if success else None"""
 
 	# first check the dependencies
-	productType = PodProductType.query.filter_by(name=ProductType).first()
+	productType = PodProductType.query.filter_by(name=productType).first()
 	
-    coffeeFlavor = CoffeeFlavor.query.filter_by(name=CoffeeFlavor).first()
+	coffeeFlavor = CoffeeFlavor.query.filter_by(name=coffeeFlavor).first()
 	
-    podPackSize = PodPackSize.query.filter_by(size=podPackSize).first()
+	podPackSize = PodPackSize.query.filter_by(size=podPackSize).first()
 
 	# not valid dependencies
 	if not all([productType, coffeeFlavor, podPackSize]):
@@ -45,14 +45,14 @@ def getCoffeePod(id=None, name=None):
 
 	# no filters 
 	if not any([id, name]):
-		return CoffeeMachine.query.all()
+		return CoffeePod.query.all()
 	
 	# filter by id
 	if id:
 		return CoffeePod.query.get(id)
 	
 	# filter by name
-    return CoffeePod.query.filter_by(name=name).all()
+	return CoffeePod.query.filter_by(name=name).all()
 
 def deleteCoffeePod(id):
 	""" delete the CoffeePod with passed id
