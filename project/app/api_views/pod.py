@@ -1,10 +1,11 @@
 """ all the views related to CoffeeMachine model"""
 
-from . import api, jsonify, make_response
+from . import api, jsonify, make_response, request
 from . import baseApi, baseStatus
+import copy
 
 # import the logic
-from ..models.pod import *
+from ..logic.pod import *
 
 # 'CoffeePod' model
 #
@@ -39,7 +40,7 @@ def getPodRoute():
 	elif type(machines) is list:
 		result['data']['coffee_pods'] = [p.toDict() for p in pods]
 	else:
-		result['data']['coffee_pods'] = [pods]
+		result['data']['coffee_pods'] = [pods.toDict()]
 
 	return make_response(jsonify(result), 200)
 
@@ -75,7 +76,7 @@ def addPodRoute():
 	return make_response(jsonify(result), 201)
 
 @api.route('/delete_pod', methods=['DELETE'])
-def deleteMachineRoute():
+def deletePodRoute():
 	''' delete the coffee Pod - accept data as json'''
 
 	# the result json structure
@@ -135,7 +136,7 @@ def getPodProductTypeRoute():
 	elif type(queryResult) is list:
 		result['data']['pod_product_type'] = [type.toDict() for type in queryResult]
 	else:
-		result['data']['pod_product_type'] = [queryResult]
+		result['data']['pod_product_type'] = [queryResult.toDict()]
 
 	return make_response(jsonify(result), 200)
 
@@ -227,7 +228,7 @@ def getPodCoffeeFlavorRoute():
 	elif type(queryResult) is list:
 		result['data']['pod_product_type'] = [type.toDict() for type in queryResult]
 	else:
-		result['data']['pod_product_type'] = [queryResult]
+		result['data']['pod_product_type'] = [queryResult.toDict()]
 
 	return make_response(jsonify(result), 200)
 
@@ -319,7 +320,7 @@ def getPodPodPackSizeRoute():
 	elif type(queryResult) is list:
 		result['data']['pod_pack_size'] = [type.toDict() for type in queryResult]
 	else:
-		result['data']['pod_pack_size'] = [queryResult]
+		result['data']['pod_pack_size'] = [queryResult.toDict()]
 
 	return make_response(jsonify(result), 200)
 

@@ -51,14 +51,17 @@ class TestCoffeeMachine(TestConfig):
 
 		self.assertTrue(allTypes, 'no types returned')
 		self.assertEqual(len(allTypes), 1, 'not the right number of types')
+		self.assertEqual(allTypes[0].name, 'test', 'no same name')
 
 		# filter the types with id
 		returnedType = getCoffeeMachineProductType(id=productType.id)
 		self.assertTrue(returnedType, 'no type returned')
+		self.assertEqual(returnedType.name, 'test', 'no same name')
 
 		# filter the types with name
 		returnedType = getCoffeeMachineProductType(name=productType.name)
 		self.assertTrue(returnedType, 'no type returned')
+		self.assertEqual(returnedType.name, 'test', 'no same name')
 
 		
 		## filter the Machine
@@ -67,14 +70,17 @@ class TestCoffeeMachine(TestConfig):
 
 		self.assertTrue(allMachines, 'no Machines returned')
 		self.assertEqual(len(allMachines), 1, 'not the right number of Machines')
+		self.assertEqual(allMachines[0].name, 'test', 'no same name')
 
 		# filter the Machine with id
 		returnedMachine = getCoffeeMachine(id=Machine.id)
 		self.assertTrue(returnedMachine, 'no Machine returned')
+		self.assertEqual(returnedMachine.name, 'test', 'no same name')
 
 		# filter the Machine with name
 		returnedMachine = getCoffeeMachine(name=Machine.name)
 		self.assertTrue(returnedMachine, 'no Machine returned')
+		self.assertEqual(returnedMachine[0].name, 'test', 'no same name')
 
 	def test_failaddCoffeeMachine(self):
 		""" try add a CoffeeMachine with already exist name"""

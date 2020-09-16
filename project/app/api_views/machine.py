@@ -1,10 +1,11 @@
 """ all the views related to CoffeeMachine model"""
 
-from . import api, jsonify, make_response
+from . import api, jsonify, make_response, request
 from . import baseApi, baseStatus
+import copy
 
 # import the logic
-from ..models.machine import *
+from ..logic.machine import *
 
 # 'CoffeeMachine' model
 #
@@ -39,7 +40,7 @@ def getMachineRoute():
 	elif type(machines) is list:
 		result['data']['coffee_machines'] = [machine.toDict() for machine in machines]
 	else:
-		result['data']['coffee_machines'] = [machines]
+		result['data']['coffee_machines'] = [machines.toDict()]
 
 	return make_response(jsonify(result), 200)
 
@@ -65,12 +66,12 @@ def addMachineRoute():
 
 	# add the data
 	if not addCoffeeMachine(name=name, WaterLine=waterLine, ProductType=productType):
-		result['status'] = status['failure']
+		result['status'] = baseStatus['failure']
 		result['message'] = 'Some error occurred. Please try again'
 		return make_response(jsonify(result), 401)
 
 	# success
-	result['status'] = status['success']
+	result['status'] = baseStatus['success']
 	return make_response(jsonify(result), 201)
 
 @api.route('/delete_machine', methods=['DELETE'])
@@ -93,12 +94,12 @@ def deleteMachineRoute():
 
 	# add the data
 	if not deleteCoffeeMachine(id):
-		result['status'] = status['failure']
+		result['status'] = baseStatus['failure']
 		result['message'] = 'Some error occurred. Please try again'
 		return make_response(jsonify(result), 401)
 
 	# success
-	result['status'] = status['success']
+	result['status'] = baseStatus['success']
 	return make_response(jsonify(result), 200)
 
 
@@ -134,7 +135,7 @@ def getProductTypeRoute():
 	elif type(queryResult) is list:
 		result['data']['machine_product_type'] = [type.toDict() for type in queryResult]
 	else:
-		result['data']['machine_product_type'] = [queryResult]
+		result['data']['machine_product_type'] = [queryResult.toDict()]
 
 	return make_response(jsonify(result), 200)
 
@@ -158,12 +159,12 @@ def addProductTypeRoute():
 
 	# add the data
 	if not addCoffeeMachineProductType(name=name):
-		result['status'] = status['failure']
+		result['status'] = baseStatus['failure']
 		result['message'] = 'Some error occurred. Please try again'
 		return make_response(jsonify(result), 401)
 
 	# success
-	result['status'] = status['success']
+	result['status'] = baseStatus['success']
 	return make_response(jsonify(result), 201)
 
 @api.route('/delete_machine_product_type', methods=['DELETE'])
@@ -186,11 +187,11 @@ def deleteProductTypeRoute():
 
 	# add the data
 	if not deleteCoffeeMachineProductType(id):
-		result['status'] = status['failure']
+		result['status'] = baseStatus['failure']
 		result['message'] = 'Some error occurred. Please try again'
 		return make_response(jsonify(result), 401)
 
 	# success
-	result['status'] = status['success']
+	result['status'] = baseStatus['success']
 	return make_response(jsonify(result), 200)
 

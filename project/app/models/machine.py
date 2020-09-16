@@ -40,4 +40,4 @@ class CoffeeMachineProductType(db.Model):
 
 	def toDict(self):
 		""" return dict representation of the object """
-		return {'id':self.id, 'name':self.name, 'CoffeeMachines':self.CoffeeMachines}
+		return {'id':self.id, 'name':self.name, 'CoffeeMachines':[i.name for i in self.CoffeeMachines]}

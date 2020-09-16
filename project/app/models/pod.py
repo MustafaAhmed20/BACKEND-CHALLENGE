@@ -44,7 +44,7 @@ class PodProductType(db.Model):
 
 	def toDict(self):
 		""" return dict representation of the object """
-		return {'id':self.id, 'name':self.name, 'coffeePods':self.coffeePods}
+		return {'id':self.id, 'name':self.name, 'coffeePods':[i.name for i in self.coffeePods]}
 
 class CoffeeFlavor(db.Model):
 	""" the types of the Coffee flavors (FLAVOR_VANILLA, FLAVOR_CARAMEL, ect)"""
@@ -62,7 +62,7 @@ class CoffeeFlavor(db.Model):
 
 	def toDict(self):
 		""" return dict representation of the object """
-		return {'id':self.id, 'name':self.name, 'coffeePods':self.coffeePods}
+		return {'id':self.id, 'name':self.name, 'coffeePods':[i.name for i in self.coffeePods]}
 
 class PodPackSize(db.Model):
 	""" the different sizes of pods"""
@@ -80,4 +80,4 @@ class PodPackSize(db.Model):
 
 	def toDict(self):
 		""" return dict representation of the object """
-		return {'id':self.id, 'size':self.size, 'coffeePods':self.coffeePods}
+		return {'id':self.id, 'size':self.size, 'coffeePods':[i.name for i in self.coffeePods]}
