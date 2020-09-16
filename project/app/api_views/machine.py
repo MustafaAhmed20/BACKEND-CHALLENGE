@@ -23,7 +23,7 @@ def getMachineRoute():
 	
 	id = filters.get('id')
 	name = filters.get('name')
-	waterLine = filters.get('waterLine')
+	waterLine = filters.get('water_line')
 
 	try:
 		machines = getCoffeeMachine(id=id, name=name, WaterLine=waterLine)
@@ -35,11 +35,11 @@ def getMachineRoute():
 	# success
 	result['status'] = baseStatus['success']
 	if not machines:
-		result['data']['CoffeeMachines'] = []
+		result['data']['coffee_machines'] = []
 	elif type(machines) is list:
-		result['data']['CoffeeMachines'] = [machine.toDict() for machine in machines]
+		result['data']['coffee_machines'] = [machine.toDict() for machine in machines]
 	else:
-		result['data']['CoffeeMachines'] = [machines]
+		result['data']['coffee_machines'] = [machines]
 
 	return make_response(jsonify(result), 200)
 
@@ -54,8 +54,8 @@ def addMachineRoute():
 	post_data = request.get_json()
 
 	name = post_data.get('name')
-	waterLine = post_data.get('waterLine')
-	productType = post_data.get('productType')
+	waterLine = post_data.get('water_line')
+	productType = post_data.get('product_type')
 
 	if not all([name, waterLine, productType]):
 		# fail
@@ -105,9 +105,9 @@ def deleteMachineRoute():
 # 'CoffeeMachineProductType' model
 #
 
-@api.route('/get_product_type')
+@api.route('/get_machine_product_type')
 def getProductTypeRoute():
-	''' filter the coffee Machines with query parameters'''
+	''' filter the coffee Machines types with query parameters'''
 
 	# the result json structure
 	result = copy.deepcopy(baseApi)
@@ -138,7 +138,7 @@ def getProductTypeRoute():
 
 	return make_response(jsonify(result), 200)
 
-@api.route('/add_product_type', methods=['POST'])
+@api.route('/add_machine_product_type', methods=['POST'])
 def addProductTypeRoute():
 	''' add new ProductType - accept data as json'''
 
@@ -166,7 +166,7 @@ def addProductTypeRoute():
 	result['status'] = status['success']
 	return make_response(jsonify(result), 201)
 
-@api.route('/delete_product_type', methods=['DELETE'])
+@api.route('/delete_machine_product_type', methods=['DELETE'])
 def deleteProductTypeRoute():
 	''' delete the ProductType - accept data as json'''
 
