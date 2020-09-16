@@ -40,13 +40,17 @@ def addCoffeeMachine(name, WaterLine, ProductType):
 	# success
 	return machine
 
-def getCoffeeMachine(id=None, name=None, WaterLine=None):
+def getCoffeeMachine(id=None, name=None, WaterLine=None, productType=None):
 	""" return the CoffeeMachine object or None if not exist
 		return a list of all CoffeeMachine if no filters passed.
 		return one object if filtered by 'id'"""
+	
+	if productType:
+		# get this object id
+		productType = CoffeeMachineProductType.query.filter_by(name=productType).first()
 
 	# no filters 
-	if not any([id, name, WaterLine]):
+	if not any([id, name, WaterLine, productType]):
 		return CoffeeMachine.query.all()
 	
 	# filter by id
@@ -60,7 +64,8 @@ def getCoffeeMachine(id=None, name=None, WaterLine=None):
 		baseQuery = baseQuery.filter_by(name=name)
 	if WaterLine:
 		baseQuery = baseQuery.filter_by(WaterLine=WaterLine)
-	
+	if productType:
+		baseQuery = baseQuery.filter_by(ProductType=productType.id)
 	# execute the query
 	return baseQuery.all()
 

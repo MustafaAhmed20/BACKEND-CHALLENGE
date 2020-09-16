@@ -1,6 +1,6 @@
 from app import create_app
 
-from app.models import db #, defaultData
+from app.models import db, defaultData
 
 import unittest
 import os
@@ -37,6 +37,28 @@ class TestConfig(unittest.TestCase):
 
 		# add the default Data
 		#defaultData(app=app, db=db)
+
+	def tearDown(self):
+
+		# drop all tables
+		db.drop_all()
+
+class TestConfigChallenge(unittest.TestCase):
+	""" test the app with the default data described in the challenge doc """
+
+	def setUp(self):
+		"""
+		Create the database if not created!
+		
+		"""
+		# test app
+		self.client_app = app.test_client()
+
+		# now create the tables 
+		db.create_all()
+
+		# add the default Data
+		defaultData(app=app, db=db)
 
 	def tearDown(self):
 

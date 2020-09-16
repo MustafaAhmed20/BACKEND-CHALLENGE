@@ -25,9 +25,10 @@ def getMachineRoute():
 	id = filters.get('id')
 	name = filters.get('name')
 	waterLine = filters.get('water_line')
+	productType = filters.get('product_type')
 
 	try:
-		machines = getCoffeeMachine(id=id, name=name, WaterLine=waterLine)
+		machines = getCoffeeMachine(id=id, name=name, WaterLine=waterLine, productType=productType)
 	except Exception as e:
 		result['status'] = baseStatus['failure']
 		result['message'] = 'Some error occurred. Please try again'

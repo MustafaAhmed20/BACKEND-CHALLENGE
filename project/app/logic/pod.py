@@ -38,21 +38,48 @@ def addCoffeePod(name, productType, coffeeFlavor, podPackSize):
 	# success
 	return pod
 
-def getCoffeePod(id=None, name=None):
+def getCoffeePod(id=None, name=None, productType=None, coffeeFlavor=None, podPackSize=None):
 	""" return the CoffeePod object or None if not exist
 		return a list of all CoffeePod if no filters passed.
 		return one object if filtered by 'id'"""
 
-	# no filters 
-	if not any([id, name]):
+	# get depend
+	#
+	
+	if productType:
+		# get this object
+		productType = PodProductType.query.filter_by(name=productType).first()
+
+	if coffeeFlavor:
+		# get this object
+		coffeeFlavor = CoffeeFlavor.query.filter_by(name=coffeeFlavor).first()
+
+	if podPackSize:
+		# get this object
+		podPackSize = PodPackSize.query.filter_by(size=podPackSize).first()
+
+	
+	# no filters
+	#
+	if not any([id, name, productType, coffeeFlavor, podPackSize]):
 		return CoffeePod.query.all()
 	
 	# filter by id
 	if id:
 		return CoffeePod.query.get(id)
 	
-	# filter by name
-	return CoffeePod.query.filter_by(name=name).all()
+	# other filters
+	baseQuery = CoffeePod.query
+
+	if name:
+		baseQuery = baseQuery.filter_by(name=name)
+	if productType:
+		baseQuery = baseQuery.filter_by(productType=productType.id)
+	if coffeeFlavor:
+		baseQuery = baseQuery.filter_by(coffeeFlavor=coffeeFlavor.id)
+	if podPackSize:
+		baseQuery = baseQuery.filter_by(podPackSize=podPackSize.id)
+	return baseQuery.all()
 
 def deleteCoffeePod(id):
 	""" delete the CoffeePod with passed id

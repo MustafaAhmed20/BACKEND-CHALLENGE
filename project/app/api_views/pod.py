@@ -24,11 +24,15 @@ def getPodRoute():
 	
 	id = filters.get('id')
 	name = filters.get('name')
+	productType = filters.get('product_type')
+	coffeeFlavor = filters.get('coffee_flavor')
+	podPackSize = filters.get('pod_pack_size')
 	
 
 	try:
-		pods = getCoffeePod(id=id, name=name)
+		pods = getCoffeePod(id=id, name=name, productType=productType, coffeeFlavor=coffeeFlavor, podPackSize=podPackSize)
 	except Exception as e:
+		raise e
 		result['status'] = baseStatus['failure']
 		result['message'] = 'Some error occurred. Please try again'
 		return make_response(jsonify(result), 401)
