@@ -56,6 +56,8 @@ DATABASE_NAME_TESTING = # testing database name
 
 ```
 
+**you can find more about sqlalchemy Database Urls [here](https://docs.sqlalchemy.org/en/13/core/engines.html#supported-databases)**
+
   
 
 create the models
